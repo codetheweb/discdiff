@@ -36,6 +36,16 @@ export default class {
         return;
       }
 
+      // Check if message was sent by bot
+      if (msg.author.bot) {
+        return;
+      }
+
+      // Check if message was sent by server owner
+      if (msg.author.id !== msg.guild.ownerID) {
+        return;
+      }
+
       const settings = await GuildSettings.findByPk(msg.guild.id);
 
       if (!settings) {
@@ -45,7 +55,7 @@ export default class {
 
       const {prefix} = settings;
 
-      if (!msg.content.startsWith(prefix) || msg.author.bot) {
+      if (!msg.content.startsWith(prefix)) {
         return;
       }
 
