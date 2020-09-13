@@ -12,6 +12,7 @@ import {
 
 import Add from './commands/add';
 import Help from './commands/help';
+import List from './commands/list';
 
 let container = new Container();
 
@@ -22,7 +23,8 @@ container.bind<Client>(TYPES.Client).toConstantValue(new Client());
 // Commands
 [
   Add,
-  Help
+  Help,
+  List
 ].forEach(command => {
   container.bind<Command>(TYPES.Command).to(command).inSingletonScope();
 });
