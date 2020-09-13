@@ -8,7 +8,8 @@ export default async (guild: Guild): Promise<void> => {
 
   const owner = await guild.client.users.fetch(guild.ownerID);
 
-  const welcomeMsg = '👋 Hi!\n';
+  let welcomeMsg = '👋 Hi!\n';
+  welcomeMsg += 'My default prefix is `,`. Try sending ,help in your server to get usage information.';
 
   await owner.send(welcomeMsg);
 };

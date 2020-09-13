@@ -12,7 +12,7 @@ export default class implements Command {
   public name = 'remove';
   public aliases = ['rm'];
   public examples = [
-    ['add #announcements https://example.com #main > .content', 'you don\'t need a description']
+    ['remove https://example.com', 'removes https://example.com']
   ];
 
   public async execute(msg: Message, args: string [], guildSettings: GuildSettings): Promise<void> {

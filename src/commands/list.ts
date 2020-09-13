@@ -8,7 +8,7 @@ export default class implements Command {
   public name = 'list';
   public aliases = ['ls'];
   public examples = [
-    ['add #announcements https://example.com #main > .content', 'you don\'t need a description']
+    ['list', 'shows all active sites']
   ];
 
   public async execute(msg: Message, _: string [], guildSettings: GuildSettings): Promise<void> {

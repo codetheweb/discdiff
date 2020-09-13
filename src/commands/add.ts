@@ -14,7 +14,7 @@ export default class implements Command {
   public name = 'add';
   public aliases = ['a'];
   public examples = [
-    ['add #announcements https://example.com #main > .content', 'you don\'t need a description']
+    ['add #announcements https://example.com #main > .content', 'send a message in announcements when the content of `#main > .content` changes on https://example.com']
   ];
 
   public async execute(msg: Message, args: string [], guildSettings: GuildSettings): Promise<void> {
