@@ -1,7 +1,7 @@
-import Settings from './settings';
+import GuildSettings from './guild-settings';
 import Site from './site';
 
 export {
-  Settings,
+  GuildSettings,
   Site
 };

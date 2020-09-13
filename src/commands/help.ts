@@ -2,7 +2,7 @@ import {Message} from 'discord.js';
 import {injectable} from 'inversify';
 import Command from '.';
 import {TYPES} from '../types';
-import {Settings} from '../models';
+import {GuildSettings} from '../models';
 import container from '../inversify.config';
 
 @injectable()
@@ -21,7 +21,7 @@ export default class implements Command {
       this.commands = container.getAll<Command>(TYPES.Command);
     }
 
-    const settings = await Settings.findOne({where: {guildId: msg.guild!.id}});
+    const settings = await GuildSettings.findOne({where: {guildId: msg.guild!.id}});
 
     if (!settings) {
       return;

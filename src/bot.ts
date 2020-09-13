@@ -1,7 +1,7 @@
 import {Client, Message, Collection} from 'discord.js';
 import {inject, injectable} from 'inversify';
 import {TYPES} from './types';
-import {Settings} from './models';
+import {GuildSettings} from './models';
 import container from './inversify.config';
 import Command from './commands';
 import debug from './utils/debug';
@@ -36,7 +36,7 @@ export default class {
         return;
       }
 
-      const settings = await Settings.findByPk(msg.guild.id);
+      const settings = await GuildSettings.findByPk(msg.guild.id);
 
       if (!settings) {
         // Got into a bad state, send owner welcome message
@@ -61,7 +61,7 @@ export default class {
       }
 
       try {
-        await handler.execute(msg, args);
+        await handler.execute(msg, args, settings);
       } catch (error) {
         debug(error);
         await msg.channel.send(errorMsg((error as Error).message.toLowerCase()));

@@ -10,6 +10,7 @@ import {
   DATA_DIR
 } from './utils/config';
 
+import Add from './commands/add';
 import Help from './commands/help';
 
 let container = new Container();
@@ -20,6 +21,7 @@ container.bind<Client>(TYPES.Client).toConstantValue(new Client());
 
 // Commands
 [
+  Add,
   Help
 ].forEach(command => {
   container.bind<Command>(TYPES.Command).to(command).inSingletonScope();
