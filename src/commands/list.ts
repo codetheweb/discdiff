@@ -14,6 +14,10 @@ export default class implements Command {
   public async execute(msg: Message, _: string [], guildSettings: GuildSettings): Promise<void> {
     const sites = await guildSettings.$get('sites');
 
+    if (sites.length === 0) {
+      throw new Error('not currently watching any sites');
+    }
+
     let list = '';
 
     sites.forEach(site => {

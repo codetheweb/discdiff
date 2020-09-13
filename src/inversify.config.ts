@@ -13,6 +13,7 @@ import {
 import Add from './commands/add';
 import Help from './commands/help';
 import List from './commands/list';
+import Remove from './commands/remove';
 
 let container = new Container();
 
@@ -24,7 +25,8 @@ container.bind<Client>(TYPES.Client).toConstantValue(new Client());
 [
   Add,
   Help,
-  List
+  List,
+  Remove
 ].forEach(command => {
   container.bind<Command>(TYPES.Command).to(command).inSingletonScope();
 });
