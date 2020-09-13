@@ -40,6 +40,10 @@ export default class implements Command {
       throw new Error('channel not found');
     }
 
+    if (channel.type !== 'text') {
+      throw new Error('must use a text channel');
+    }
+
     // Make sure site is reachable
     const address = args[1];
 
