@@ -1,11 +1,16 @@
 import {Message, GuildChannel} from 'discord.js';
-import {injectable} from 'inversify';
+import {injectable, inject} from 'inversify';
+import cheerio from 'cheerio';
 import got from 'got';
 import Command from '.';
+import Queue from '../services/queue';
 import {Site, GuildSettings} from '../models';
+import {TYPES} from '../types';
 
 @injectable()
 export default class implements Command {
+  @inject(TYPES.Queue) private readonly queue!: Queue;
+
   public name = 'add';
   public aliases = ['a'];
   public examples = [
@@ -52,11 +57,15 @@ export default class implements Command {
     const site = new Site({
       address,
       selector,
-      lastContent: siteContent,
+      lastContent: cheerio.load(siteContent)(selector).html() ?? '',
       channelId: channel.id,
       guildId: guildSettings.guildId
     });
 
     await site.save();
+
+    this.queue.add(site.id);
+
+    await msg.channel.send('👍 added');
   }
 }

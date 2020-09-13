@@ -70,6 +70,8 @@ export default class {
 
     this.client.on('ready', async () => {
       console.log(`Ready! Invite the bot with https://discord.com/api/oauth2/authorize?client_id=${this.clientId}&permissions=150592&scope=bot`);
+
+      container.bind<Client>(TYPES.DiscordClient).toConstantValue(this.client);
     });
 
     this.client.on('error', console.error);

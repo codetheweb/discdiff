@@ -1,10 +1,14 @@
 import {Message} from 'discord.js';
-import {injectable} from 'inversify';
+import {injectable, inject} from 'inversify';
 import Command from '.';
 import {Site, GuildSettings} from '../models';
+import Queue from '../services/queue';
+import {TYPES} from '../types';
 
 @injectable()
 export default class implements Command {
+  @inject(TYPES.Queue) private readonly queue!: Queue;
+
   public name = 'remove';
   public aliases = ['rm'];
   public examples = [
@@ -16,8 +20,6 @@ export default class implements Command {
       throw new Error('need to call remove with an address');
     }
 
-    console.log({where: {address: args[0], guildId: guildSettings.guildId}});
-
     const site = await Site.findOne({where: {address: args[0], guildId: guildSettings.guildId}});
 
     if (!site) {
@@ -25,6 +27,8 @@ export default class implements Command {
     }
 
     await site.destroy();
+
+    this.queue.remove(site.id);
 
     await msg.channel.send('👍 removed');
   }
